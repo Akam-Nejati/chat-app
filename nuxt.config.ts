@@ -1,14 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    '@invictus.codes/nuxt-vuetify'
+    '@invictus.codes/nuxt-vuetify',
+    '@nuxtjs/tailwindcss'
   ],
-  vuetify: {
-    vuetifyOptions: {
-      theme: {
-        defaultTheme: "dark"
-      }
-    }
-  }
 })
