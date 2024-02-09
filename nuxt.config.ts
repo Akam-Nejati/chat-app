@@ -6,4 +6,12 @@ export default defineNuxtConfig({
     '@invictus.codes/nuxt-vuetify',
     '@nuxtjs/tailwindcss'
   ],
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css'
+  ],
+    runtimeConfig: {
+      public: {
+        baseURL: "http://localhost:3000/"
+      }
+    }
 })

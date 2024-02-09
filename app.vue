@@ -14,11 +14,6 @@
 // function sendMessage(msg: string) {
 //   socket.emit('send-msg', msg);
 // }
-
-import { useTheme } from 'vuetify'
-
-const theme = useTheme()
-theme.global.name.value = "dark"
 </script>
 
 <template>
@@ -27,5 +22,7 @@ theme.global.name.value = "dark"
 
 
 <style>
-  
+  html{
+    background-color: #1C1B1F !important;
+  }
 </style>
