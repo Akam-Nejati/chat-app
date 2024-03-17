@@ -3,6 +3,7 @@ definePageMeta({
     name: "Login"
 })
 
+const toast = useToast()
 const email = useState<string>()
 const password = useState<string>()
 const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
@@ -17,11 +18,25 @@ const PasswordRules = [
 ]
 
 const loginForm = useState<HTMLFormElement>()
-const showSccessAlert = useState<boolean>()
-const showErrorAlert = useState<boolean>()
 const loginErrorMessage = useState<string>()
+
+
+interface LoginResponse {
+    message: string,
+    token: string
+}
 async function login() {
-    const { data, error } = await useCustomFetch('login', {
+    const isFormValid = await loginForm.value.validate()
+    console.log(await loginForm.value.validate().valid);
+
+
+    if (!isFormValid.valid) {
+        console.log("form is returned");
+
+        return
+    }
+
+    const { data, error } = await useCustomFetch<LoginResponse>('login', {
         method: "POST",
         body: {
             password: password.value,
@@ -30,13 +45,20 @@ async function login() {
     })
 
     if (data.value) {
-        console.log(data.value);
-        
+        const nextMonth = new Date();
+        nextMonth.setMonth(nextMonth.getMonth() + 1);
+
+        const token = useCookie('token', { expires: nextMonth })
+        token.value = data.value.token
         loginForm.value.reset()
-        showSccessAlert.value = true
+        toast.success('Login successfuly', {
+            position: "top-right"
+        })
+        loginErrorMessage.value = ""
     } else {
-        showErrorAlert.value = true
-        loginErrorMessage.value = error.value?.data.message
+        toast.error(error.value?.data.message, {
+            position: "top-right"
+        })
     }
 }
 </script>
@@ -50,17 +72,14 @@ async function login() {
                         <span class="text-3xl font-bold text-[#D0BCFF]">Welcome back !</span>
                         <small class="text-xl text-[#D0BCFF] text-opacity-50">Enter Your Email and Password</small>
                     </div>
-                    <v-alert v-if="showSccessAlert" class="mt-5" type="success" title="success" color="green-lighten-1"
-                        text="register successfuly"></v-alert>
-                    <v-alert v-if="showErrorAlert" class="mt-5" type="error" title="Error" color="red-lighten-1"
-                        :text="loginErrorMessage"></v-alert>
                     <div class="mt-5">
                         <v-text-field v-model:model-value="email" :rules="emailRules" label="Emai *"></v-text-field>
                         <v-text-field v-model:model-value="password" :rules="PasswordRules"
                             label="Password *"></v-text-field>
                     </div>
-                    <div>
-                        <nuxt-link :to="{ name: 'Register' }" class="text-[#D0BCFF]">I dont have account</nuxt-link>
+                    <div class="grid gap-2">
+                        <RouterLink :to="{ name: 'Register' }" class="text-[#D0BCFF]">I dont have account</RouterLink>
+                        <RouterLink :to="{ name: 'Reset Password' }" class="text-[#D0BCFF]">Fotgot Password</RouterLink>
                     </div>
                 </div>
                 <div>

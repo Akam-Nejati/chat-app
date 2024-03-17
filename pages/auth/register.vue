@@ -3,6 +3,7 @@ definePageMeta({
   name: "Register"
 })
 
+const toast = useToast()
 const userName = useState<string>()
 const email = useState<string>()
 const password = useState<string>()
@@ -32,10 +33,15 @@ const confirmPasswordRules = [
 ]
 
 const registerForm = useState<HTMLFormElement>()
-const showSccessAlert = useState<boolean>(() => false)
-const showErrorAlert = useState<boolean>(() => false)
 const registerErrorMessage = useState<string>()
 async function register() {
+  const isFormValid = await registerForm.value.validate()
+
+  if (!isFormValid.valid) {
+    return
+  }
+
+
   const { data, error } = await useCustomFetch('register', {
     method: "POST",
     body: {
@@ -47,10 +53,13 @@ async function register() {
 
   if (data.value) {
     registerForm.value.reset()
-    showSccessAlert.value = true
-  } else {    
-    showErrorAlert.value = true
-    registerErrorMessage.value = error.value?.data.message
+    toast.success("register successfuly", {
+      position: "top-right"
+    })
+  } else {
+    toast.error(error.value?.data.message, {
+      position: "top-right"
+    })
   }
 }
 </script>
@@ -63,10 +72,6 @@ async function register() {
           <div class="flex flex-col">
             <span class="text-3xl font-bold text-[#D0BCFF]">Welcome to soot :)</span>
           </div>
-          <v-alert v-if="showSccessAlert" class="mt-5" type="success" title="success" color="green-lighten-1"
-            text="register successfuly"></v-alert>
-          <v-alert v-if="showErrorAlert" class="mt-5" type="error" title="Error" color="red-lighten-1"
-            :text="registerErrorMessage"></v-alert>
           <div class="mt-5">
             <v-text-field v-model:model-value="userName" :rules="userNameRules" label="User Name *"></v-text-field>
             <v-text-field v-model:model-value="email" :rules="emailRules" label="Emai *"></v-text-field>
@@ -108,4 +113,3 @@ async function register() {
   @apply !text-red-300
 }
 </style>
-

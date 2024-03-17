@@ -10,13 +10,11 @@ export function useCustomFetch<T> (url: string, options: UseFetchOptions<T> = {}
 
     key: url,
 
-    // set user token if connected
     headers: token.value
       ? { Authorization: `${token.value}` }
       : {},
   }
 
-  // for nice deep defaults, please use unjs/defu
   const params = defu(options, defaults)
 
   return useFetch(url, params)
