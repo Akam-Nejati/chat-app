@@ -1,7 +1,7 @@
 import express from "express";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
-import userModel from "../models/user";
+import userModel from "../../models/user";
 
 const router = express.Router();
 
@@ -20,7 +20,8 @@ router.post("/", (req, response) => {
     const token: string = jwt.sign(payload, secretKey, { expiresIn: "1h" });
     return token;
   };
-
+  console.log(process.env.BASE_URL);
+  
   userModel
     .find({ email: email })
     .then((user) => {

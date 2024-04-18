@@ -1,9 +1,9 @@
 import * as core from "express-serve-static-core";
-import register from "./register";
-import login from "./login";
-import resetPassword from "./resetPassword";
-import checkRestToken from "./checkRestToken";
-import changeUserPassword from "./changeUserPassword";
+import register from "./authentication/register";
+import login from "./authentication/login";
+import resetPassword from "./authentication/resetPassword";
+import checkRestToken from "./authentication/checkRestToken";
+import changeUserPassword from "./authentication/changeUserPassword";
 
 const useRoutes = (app: core.Express) => {
   app.use("/register", register);

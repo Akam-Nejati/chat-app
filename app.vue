@@ -17,6 +17,7 @@
 </script>
 
 <template>
+  <NuxtPwaManifest />
   <nuxt-page />
 </template>
 

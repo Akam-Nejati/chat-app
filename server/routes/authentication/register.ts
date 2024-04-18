@@ -1,6 +1,6 @@
 import express from "express";
-import userModel from "../models/user";
-import type User from "../interfaces/user.interface";
+import userModel from "../../models/user";
+import type User from "../../interfaces/user.interface";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
