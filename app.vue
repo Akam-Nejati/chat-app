@@ -14,11 +14,21 @@
 // function sendMessage(msg: string) {
 //   socket.emit('send-msg', msg);
 // }
+
+const route = useRoute()
+const isAuthPage = route.fullPath.includes("auth")
 </script>
 
 <template>
   <NuxtPwaManifest />
-  <nuxt-page />
+  <div v-if="!isAuthPage" class="p-4">
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
+  <div v-else>
+    <nuxt-page />
+  </div>
 </template>
 
 

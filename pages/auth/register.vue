@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  name: "Register"
+  name: "Register",
+  middleware: "auth"
 })
 
 const toast = useToast()
@@ -11,6 +12,11 @@ const confirmPassword = useState<string>()
 const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 const userNameRegex = /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+
+interface SignResponse {
+    message: string,
+    token: string
+}
 
 const emailRules = [
   (value: string) => !!value || 'Required.',
@@ -42,7 +48,7 @@ async function register() {
   }
 
 
-  const { data, error } = await useCustomFetch('register', {
+  const { data, error } = await useCustomFetch<SignResponse>('register', {
     method: "POST",
     body: {
       userName: userName.value,
@@ -52,10 +58,19 @@ async function register() {
   })
 
   if (data.value) {
+    const nextMonth = new Date();
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+
+    const token = useCookie('token', { expires: nextMonth })
+    token.value = data.value.token
+
     registerForm.value.reset()
+
     toast.success("register successfuly", {
       position: "top-right"
     })
+
+    navigateTo("/chats")
   } else {
     toast.error(error.value?.data.message, {
       position: "top-right"
@@ -83,13 +98,13 @@ async function register() {
             <nuxt-link :to="{ name: 'Login' }" class="text-[#D0BCFF]">Login to account</nuxt-link>
           </div>
         </div>
-        <div>
+        <!-- <div>
           <div class="mt-4">
             <clientOnly>
               <font-awesome-icon :icon="['fab', 'google']" class="text-3xl text-[#B2B1FF] p-4 border rounded" />
             </clientOnly>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="mt-5 flex flex-col sm:flex-row gap-4 mb-[2rem] sm:!mb-0">
         <v-btn type="submit" text="#381E72" color="#D0BCFF" rounded="xl" size="large" class="w-full sm:w-fit">

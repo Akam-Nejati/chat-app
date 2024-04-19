@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-    name: "Login"
+    name: "Login",
+    middleware: "auth"
 })
 
 const toast = useToast()
@@ -50,10 +51,14 @@ async function login() {
 
         const token = useCookie('token', { expires: nextMonth })
         token.value = data.value.token
+
         loginForm.value.reset()
+
         toast.success('Login successfuly', {
             position: "top-right"
         })
+
+        navigateTo("/chats")
         loginErrorMessage.value = ""
     } else {
         toast.error(error.value?.data.message, {
@@ -82,14 +87,14 @@ async function login() {
                         <RouterLink :to="{ name: 'Reset Password' }" class="text-[#D0BCFF]">Fotgot Password</RouterLink>
                     </div>
                 </div>
-                <div>
+                <!-- <div>
                     <div class="mt-4">
                         <clientOnly>
                             <font-awesome-icon :icon="['fab', 'google']"
                                 class="text-3xl text-[#B2B1FF] p-4 border rounded" />
                         </clientOnly>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="mt-5 flex flex-col sm:flex-row gap-4 mb-[2rem] sm:!mb-0">
                 <v-btn type="submit" text="#381E72" color="#D0BCFF" rounded="xl" size="large" class="w-full sm:w-fit">

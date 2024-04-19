@@ -1,6 +1,6 @@
 import { useUserId } from "~/stores/userId";
 
-export default defineNuxtRouteMiddleware(async (to, from) => {
+export default defineNuxtRouteMiddleware(async (to) => {
   const userIdStore = useUserId();
   const { userId } = toRefs(userIdStore); 
   const { data } = await useAsyncData("resetToken", async () => {

@@ -12,7 +12,8 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@vite-pwa/nuxt": "^0.6.0",
-    "nuxt": "^3.7.3"
+    "nuxt": "^3.7.3",
+    "nuxt-icon": "^0.6.10"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",

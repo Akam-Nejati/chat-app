@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
@@ -7,6 +6,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "@vite-pwa/nuxt",
+    "nuxt-icon",
   ],
   css: ["@fortawesome/fontawesome-svg-core/styles.css"],
   runtimeConfig: {
@@ -36,36 +36,36 @@ export default defineNuxtConfig({
       display: "standalone",
       orientation: "portrait",
       icons: [
-      {
-        src: "/launcher-icon-0-75x.png",
-        sizes: "36x36",
-        type: "image/png",
-      },
-      {
-        src: "/launcher-icon-1x.png",
-        sizes: "48x48",
-        type: "image/png",
-      },
-      {
-        src: "/launcher-icon-1-5x.png",
-        sizes: "72x72",
-        type: "image/png",
-      },
-      {
-        src: "/launcher-icon-2x.png",
-        sizes: "96x96",
-        type: "image/png",
-      },
-      {
-        src: "/launcher-icon-3x.png",
-        sizes: "144x144",
-        type: "image/png",
-      },
-      {
-        src: "/launcher-icon-4x.png",
-        sizes: "192x192",
-        type: "image/png",
-      }
+        {
+          src: "/launcher-icon-0-75x.png",
+          sizes: "36x36",
+          type: "image/png",
+        },
+        {
+          src: "/launcher-icon-1x.png",
+          sizes: "48x48",
+          type: "image/png",
+        },
+        {
+          src: "/launcher-icon-1-5x.png",
+          sizes: "72x72",
+          type: "image/png",
+        },
+        {
+          src: "/launcher-icon-2x.png",
+          sizes: "96x96",
+          type: "image/png",
+        },
+        {
+          src: "/launcher-icon-3x.png",
+          sizes: "144x144",
+          type: "image/png",
+        },
+        {
+          src: "/launcher-icon-4x.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
       ],
     },
     devOptions: {

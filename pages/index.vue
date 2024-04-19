@@ -1,3 +1,3 @@
-<script lang="ts" setup>
-    navigateTo({path: "auth/login"})
+<script setup lang="ts">
+    navigateTo("/auth/login")
 </script>
