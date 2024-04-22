@@ -10,6 +10,9 @@ const user = new mongoose.Schema({
         unique: true,
     },
     password: String,
+}, {
+    timestamps: true,
+    versionKey: false
 })
 
 const User = mongoose.model("Users", user)

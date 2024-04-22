@@ -18,15 +18,16 @@ import * as mongoose from "mongoose"
 import bodyParser from "body-parser"
 import useRoutes from "./routes/main"
 import cors from "cors"
+import {connectToSocketIo} from "./socket.io/main" 
 // import cookie from "cookie-parser"
-
+// import message from "./socket.io/messages/message"
 
 const app = express()
 
+connectToSocketIo()
+
 app.use(bodyParser.json());
 app.use(cors())
-// app.use(cookie())
-
 
 useRoutes(app)
 

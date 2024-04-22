@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Item {
-    name: string,
-    link: string,
+    name: string;
+    link: string;
     icon: string
 }
 const items = useState<Item[]>(() => [
