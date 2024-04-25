@@ -3,14 +3,18 @@ definePageMeta({
   middleware: "auth"
 })
 
-useSocket().emit("send", {
-  sennder: "6620ce4b15ed6b340ce37eea",
-  receiver: "6622e77fd6bf705ba5abbea1", 
-  text: "hello"
-})
+
+function send() {
+  console.log("hello");
+  
+  useSocket().emit("search", {
+    info: "320"
+  })
+}
 </script>
 
 
 <template>
-  no chat selected
+  <button @click="send">send</button>
+  <!-- no chat selected -->
 </template>

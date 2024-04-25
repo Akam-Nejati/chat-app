@@ -12,34 +12,32 @@
 // // //     io.emit('message', 'Hello from server!')
 // // // })
 
-
-import express from "express"
-import * as mongoose from "mongoose"
-import bodyParser from "body-parser"
-import useRoutes from "./routes/main"
-import cors from "cors"
-import {connectToSocketIo} from "./socket.io/main" 
+import express from 'express';
+import * as mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import useRoutes from './routes/main';
+import cors from 'cors';
+import { connectToSocketIo } from './socket.io/main';
 // import cookie from "cookie-parser"
 // import message from "./socket.io/messages/message"
 
-const app = express()
-
-connectToSocketIo()
+const app = express();
 
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
 
-useRoutes(app)
+useRoutes(app);
 
-mongoose.connect('mongodb://127.0.0.1:27017/chat-app')
+mongoose
+    .connect('mongodb://127.0.0.1:27017/chat-app')
+    .then(() => {
+        console.log('Connected to MongoDB');
 
-.then(() => {
-    console.log('Connected to MongoDB');
-
-    app.listen("3000", () => {
-        console.log("server is running");
+        app.listen('3000', () => {
+            console.log('server is running');
+            connectToSocketIo();
+        });
     })
-})
-.catch(error => {
-    console.log(error);
-})
+    .catch((error) => {
+        console.log(error);
+    });

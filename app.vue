@@ -33,7 +33,7 @@ const isAuthPage = route.fullPath.includes("auth")
 
 
 <style>
-  html{
-    background-color: #1C1B1F !important;
-  }
+html {
+  background-color: #1C1B1F !important;
+}
 </style>

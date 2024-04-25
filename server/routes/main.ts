@@ -4,9 +4,9 @@ import login from "./authentication/login";
 import resetPassword from "./authentication/resetPassword";
 import checkRestToken from "./authentication/checkRestToken";
 import changeUserPassword from "./authentication/changeUserPassword";
-// import personalChats from "./chats/personal";
 
 const useRoutes = (app: core.Express) => {
+  // Auth
   app.use("/register", register);
   app.use("/login", login);
   app.use("/resetPassword", resetPassword);
